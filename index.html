@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#A3B781">
+  <title>ARKEA | Hacemos de lo cotidiano algo extraordinario</title>
+  <!-- Logo usado como ícono de la pestaña -->
+  <link rel="icon" type="image/png" href="logo.png">
+
+  <style>
+    /* 1. Colores principales de la marca */
+    :root {
+      --principal: #A3B781;
+      --secundario: #F5EBE0;
+      --acento: #6F765D;
+      --fondo: #F5EBE0;
+      --texto: #979F94;
+      --texto-oscuro: #41483D;
+      --blanco: #FFFDF9;
+      --sombra: 0 10px 28px rgba(65, 72, 61, 0.10);
+      --radio: 18px;
+    }
+
+    /* 2. Estilos generales */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      background: var(--fondo);
+      color: var(--texto-oscuro);
+      font-family: Arial, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    .contenedor { width: min(1120px, 90%); margin: 0 auto; }
+    .etiqueta {
+      color: var(--acento);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 { line-height: 1.15; margin-top: 0; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: .75rem; }
+    .introduccion { max-width: 680px; color: #687064; margin: 0 0 2rem; }
+    section { padding: 82px 0; }
+    .boton {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      border: 2px solid var(--acento);
+      border-radius: 999px;
+      padding: .85rem 1.35rem;
+      background: var(--acento);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .2s, background .2s;
+    }
+    .boton:hover { transform: translateY(-2px); background: var(--texto-oscuro); }
+    .boton-secundario { background: transparent; color: var(--acento); }
+    .boton-secundario:hover { color: white; }
+
+    /* 3. Menú fijo */
+    .encabezado {
+      position: fixed;
+      z-index: 20;
+      inset: 0 0 auto;
+      background: rgba(245, 235, 224, .96);
+      border-bottom: 1px solid rgba(111, 118, 93, .18);
+      backdrop-filter: blur(10px);
+    }
+    .navegacion {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .marca { display: flex; align-items: center; gap: .7rem; text-decoration: none; }
+    .marca img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; }
+    .marca strong { letter-spacing: .13em; font-size: 1.2rem; }
+    .enlaces { display: flex; align-items: center; gap: 1.25rem; }
+    .enlaces a { text-decoration: none; font-weight: 700; font-size: .93rem; }
+    .enlaces a:hover { color: var(--acento); }
+    .menu-movil {
+      display: none; border: 1px solid var(--acento); background: transparent;
+      color: var(--texto-oscuro); padding: .5rem .75rem; border-radius: 10px;
+      font-size: 1rem; cursor: pointer;
+    }
+
+    /* 4. Inicio */
+    #inicio { padding-top: 145px; min-height: 92vh; display: flex; align-items: center; }
+    .hero {
+      display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 3rem;
+    }
+    .hero h1 { font-size: clamp(3rem, 7vw, 5.6rem); letter-spacing: -.055em; margin: .6rem 0 1rem; }
+    .hero h1 span { color: var(--acento); }
+    .eslogan { max-width: 520px; color: #687064; font-size: clamp(1.15rem, 2.5vw, 1.5rem); }
+    .hero-acciones { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.7rem; }
+    .hero-visual {
+      min-height: 360px; padding: 2rem; border-radius: 42% 42% 22px 22px;
+      background: var(--principal); display: grid; place-items: center; position: relative;
+      overflow: hidden;
+    }
+    .hero-visual::before, .hero-visual::after {
+      content: ""; position: absolute; border: 1px solid rgba(255,255,255,.55);
+      border-radius: 50%; width: 250px; height: 250px;
+    }
+    .hero-visual::after { width: 320px; height: 320px; }
+    .hero-logo { width: min(76%, 300px); max-height: 300px; object-fit: contain; z-index: 1; }
+
+    /* 5. Sobre la empresa */
+    #sobre { background: var(--blanco); }
+    .datos-empresa { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .dato {
+      background: var(--secundario); padding: 1.35rem; border-radius: var(--radio);
+      border: 1px solid rgba(111,118,93,.12);
+    }
+    .dato h3 { font-size: 1.05rem; margin-bottom: .45rem; color: var(--acento); }
+    .dato p { margin: 0; color: #626B60; }
+    .propuesta { grid-column: 1 / -1; }
+    .equipo { margin-top: 2.5rem; }
+    .equipo h3 { font-size: 1.35rem; }
+    .lista-equipo { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+    .persona { padding: 1rem; background: var(--fondo); border-radius: 14px; }
+    .persona strong { display: block; }
+    .persona span { font-size: .9rem; color: #687064; }
+
+    /* 6. Catálogo de productos */
+    #catalogo { background: var(--fondo); }
+    .productos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.35rem; }
+    .producto {
+      background: var(--blanco); border-radius: var(--radio); overflow: hidden;
+      box-shadow: var(--sombra); display: flex; flex-direction: column;
+    }
+    .producto-foto {
+      width: 100%; height: 270px; object-fit: cover; cursor: zoom-in;
+      background: #e8e4d9; transition: transform .3s;
+    }
+    .producto-foto:hover { transform: scale(1.025); }
+    .producto-contenido { padding: 1.4rem; display: flex; flex-direction: column; flex: 1; }
+    .producto h3 { margin-bottom: .5rem; font-size: 1.4rem; text-transform: capitalize; }
+    .producto p { color: #687064; margin: 0 0 1.2rem; flex: 1; }
+    .precio { color: var(--acento); font-size: 1.25rem; font-weight: 800; }
+    .aviso-fotos { margin-top: 1rem; color: #687064; font-size: .88rem; }
+
+    /* 7. Contacto y formulario */
+    #contacto { background: var(--principal); }
+    .contacto-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 2.5rem; align-items: start; }
+    .contacto-texto p { color: #41483D; }
+    .correo { font-weight: 700; overflow-wrap: anywhere; }
+    .formulario {
+      background: var(--blanco); padding: clamp(1.2rem, 3vw, 2rem);
+      border-radius: var(--radio); box-shadow: var(--sombra);
+    }
+    .campo { margin-bottom: 1rem; }
+    .campo label { display: block; font-weight: 700; margin-bottom: .35rem; }
+    .campo input, .campo textarea {
+      width: 100%; border: 1px solid #c8cdbf; border-radius: 10px;
+      padding: .85rem; font: inherit; color: var(--texto-oscuro); background: white;
+    }
+    .campo textarea { min-height: 125px; resize: vertical; }
+    .campo input:focus, .campo textarea:focus { outline: 2px solid var(--principal); border-color: var(--acento); }
+    .estado-formulario { min-height: 1.5rem; color: var(--acento); font-weight: 700; margin: .8rem 0 0; }
+
+    /* 8. Pie de página */
+    footer { padding: 1.4rem 0; background: var(--texto-oscuro); color: var(--secundario); text-align: center; }
+    footer p { margin: .2rem 0; font-size: .9rem; }
+
+    /* 9. Ventana emergente de las fotos */
+    .modal {
+      position: fixed; inset: 0; z-index: 50; display: none; place-items: center;
+      padding: 1.2rem; background: rgba(25, 29, 23, .84);
+    }
+    .modal.abierto { display: grid; }
+    .modal-contenido { max-width: min(900px, 95vw); max-height: 90vh; position: relative; }
+    .modal img { max-height: 80vh; max-width: 100%; object-fit: contain; border-radius: 12px; }
+    .cerrar-modal {
+      position: absolute; right: -12px; top: -14px; width: 42px; height: 42px;
+      border: 0; border-radius: 50%; background: white; color: #222;
+      font-size: 1.5rem; cursor: pointer;
+    }
+    .modal-titulo { color: white; text-align: center; margin: .6rem 0 0; }
+
+    /* 10. Ajustes para celular y pantallas pequeñas */
+    @media (max-width: 760px) {
+      .navegacion { min-height: 68px; }
+      .marca img { width: 40px; height: 40px; }
+      .menu-movil { display: block; }
+      .enlaces {
+        display: none; position: absolute; top: 68px; left: 0; right: 0;
+        padding: 1rem 5%; background: var(--fondo); flex-direction: column;
+        align-items: stretch; gap: 0; border-bottom: 1px solid rgba(111,118,93,.2);
+      }
+      .enlaces.visible { display: flex; }
+      .enlaces a { padding: .75rem 0; }
+      #inicio { padding-top: 110px; min-height: auto; }
+      section { padding: 62px 0; }
+      .hero, .contacto-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-visual { min-height: 260px; order: -1; }
+      .hero-logo { max-height: 220px; }
+      .datos-empresa, .productos { grid-template-columns: 1fr; }
+      .propuesta { grid-column: auto; }
+      .lista-equipo { grid-template-columns: repeat(2, 1fr); }
+      .producto-foto { height: 240px; }
+    }
+    @media (max-width: 420px) {
+      .lista-equipo { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 3.2rem; }
+      .hero-acciones .boton { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Encabezado y navegación fija -->
+  <header class="encabezado">
+    <nav class="navegacion contenedor" aria-label="Navegación principal">
+      <a class="marca" href="#inicio" aria-label="ARKEA, ir al inicio">
+        <img src="logo.png" alt="Logo de ARKEA">
+        <strong>ARKEA</strong>
+      </a>
+      <button class="menu-movil" id="boton-menu" aria-expanded="false" aria-controls="enlaces-menu">Menú ☰</button>
+      <div class="enlaces" id="enlaces-menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#sobre">Sobre la empresa</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Sección 1: presentación de la empresa -->
+    <section id="inicio">
+      <div class="hero contenedor">
+        <div>
+          <span class="etiqueta">Diseño · Organización · Creatividad</span>
+          <h1>Haz espacio para lo <span>extraordinario.</span></h1>
+          <p class="eslogan"><strong>ARKEA</strong> — Hacemos de lo cotidiano algo extraordinario.</p>
+          <p>Productos para organizar y decorar tus espacios, combinando funcionalidad, diseño y fabricación con cortadora láser.</p>
+          <div class="hero-acciones">
+            <a class="boton" href="#catalogo">Ver catálogo <span aria-hidden="true">→</span></a>
+            <a class="boton boton-secundario" href="#sobre">Conoce ARKEA</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img class="hero-logo" src="imagenes/logo.png" alt="Logo de ARKEA">
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 2: información, propuesta de valor y equipo -->
+    <section id="sobre">
+      <div class="contenedor">
+        <span class="etiqueta">Conoce nuestra idea</span>
+        <h2>Sobre ARKEA</h2>
+        <p class="introduccion">Somos una empresa estudiantil que crea organizadores para el hogar con un enfoque práctico, moderno y personalizable.</p>
+
+        <div class="datos-empresa">
+          <article class="dato">
+            <h3>Eje temático</h3>
+            <p>Cortadora láser.</p>
+          </article>
+          <article class="dato">
+            <h3>Nuestro enfoque</h3>
+            <p>Organizadores del hogar que combinan utilidad y decoración.</p>
+          </article>
+          <article class="dato">
+            <h3>Cliente objetivo</h3>
+            <p>Personas jóvenes y familias que quieren organizar y decorar sus espacios de una forma práctica, moderna y personalizada.</p>
+          </article>
+          <article class="dato propuesta">
+            <h3>Propuesta de valor</h3>
+            <p>Nuestra propuesta de valor es crear productos funcionales, modernos y personalizables que ayuden a las personas a organizar y decorar sus espacios. En ARKEA combinamos el diseño inspirado en la naturaleza con la fabricación mediante corte láser para ofrecer productos diferentes, prácticos y que se adapten al estilo de cada persona.</p>
+          </article>
+        </div>
+
+        <div class="equipo">
+          <h3>Integrantes y roles</h3>
+          <div class="lista-equipo">
+            <div class="persona"><strong>Xiara</strong><span>Diseño y fabricación</span></div>
+            <div class="persona"><strong>Sara</strong><span>Producto</span></div>
+            <div class="persona"><strong>Matias</strong><span>Desarrollo de la página web</span></div>
+            <div class="persona"><strong>Matteo</strong><span>Vocero comercial</span></div>
+            <div class="persona"><strong>Camila</strong><span>Marca</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 3: catálogo de productos -->
+    <section id="catalogo">
+      <div class="contenedor">
+        <span class="etiqueta">Diseñados para tu espacio</span>
+        <h2>Nuestro catálogo</h2>
+        <p class="introduccion">Conoce los productos de ARKEA: ideas funcionales con diseños inspirados en la naturaleza.</p>
+
+        <div class="productos">
+          <article class="producto">
+            <img class="producto-foto" src="imagenes/producto1.jpg" alt="Mirrorbox, espejo organizador" data-titulo="Mirrorbox" tabindex="0" role="button" aria-label="Ampliar foto de Mirrorbox">
+            <div class="producto-contenido">
+              <h3>Mirrorbox</h3>
+              <p>Es un espejo pensado para aprovechar mejor el espacio. Cuenta con una repisa amplia en la parte inferior para colocar objetos pequeños y cuatro ganchos que pueden utilizarse para colgar accesorios. Combina decoración y organización en un solo producto.</p>
+              <div class="precio">₡4.227</div>
+            </div>
+          </article>
+
+          <article class="producto">
+            <img class="producto-foto" src="imagenes/producto2.jpg" alt="Moodbox, lámpara decorativa con paneles intercambiables" data-titulo="Moodbox" tabindex="0" role="button" aria-label="Ampliar foto de Moodbox">
+            <div class="producto-contenido">
+              <h3>Moodbox</h3>
+              <p>Es una lámpara decorativa que permite cambiar sus caras o paneles para modificar su apariencia. Las diferentes caras pueden tener diseños como hojas, estrellas, ondas o figuras geométricas. Esto permite que la lámpara se adapte a diferentes gustos y estilos.</p>
+              <div class="precio">₡3.137</div>
+            </div>
+          </article>
+
+
+
+     
+    </section>
+
+    <!-- Sección 4: datos de contacto y formulario -->
+    <section id="contacto">
+      <div class="contenedor contacto-grid">
+        <div class="contacto-texto">
+          <span class="etiqueta">Hablemos</span>
+          <h2>Contacto</h2>
+          <p>¿Quieres conocer más sobre nuestros productos? Escríbenos.</p>
+          <p><strong>Correo electrónico</strong><br>
+            <a class="correo" href="mailto:arkea2026@gmail.com">arkea2026@gmail.com</a>
+          </p>
+        </div>
+
+        <form class="formulario" id="formulario-contacto">
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" autocomplete="name" required>
+          </div>
+          <div class="campo">
+            <label for="correo">Correo electrónico</label>
+            <input id="correo" name="correo" type="email" autocomplete="email" required>
+          </div>
+          <div class="campo">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
+          </div>
+          <button class="boton" type="submit">Preparar correo</button>
+          <p class="estado-formulario" id="estado-formulario" aria-live="polite">El formulario abrirá tu aplicación de correo para enviar el mensaje.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pie de página -->
+  <footer>
+    <div class="contenedor">
+      <p><strong>ARKEA</strong> — Hacemos de lo cotidiano algo extraordinario.</p>
+      <p>Feria ROBOTEC · San Diego Bilingual High School</p>
+    </div>
+  </footer>
+
+  <!-- Ventana emergente para ampliar la foto seleccionada -->
+  <div class="modal" id="modal-foto" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+    <div class="modal-contenido">
+      <button class="cerrar-modal" id="cerrar-modal" aria-label="Cerrar foto ampliada">×</button>
+      <img id="foto-ampliada" src="" alt="">
+      <p class="modal-titulo" id="titulo-ampliado"></p>
+    </div>
+  </div>
+
+  <script>
+    // Menú desplegable en celulares
+    const botonMenu = document.getElementById('boton-menu');
+    const enlacesMenu = document.getElementById('enlaces-menu');
+
+    botonMenu.addEventListener('click', () => {
+      const abierto = enlacesMenu.classList.toggle('visible');
+      botonMenu.setAttribute('aria-expanded', String(abierto));
+    });
+
+    // Cierra el menú al elegir una sección
+    enlacesMenu.querySelectorAll('a').forEach(enlace => {
+      enlace.addEventListener('click', () => {
+        enlacesMenu.classList.remove('visible');
+        botonMenu.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Galería: al tocar o hacer clic en una foto, se abre ampliada
+    const modal = document.getElementById('modal-foto');
+    const fotoAmpliada = document.getElementById('foto-ampliada');
+    const tituloAmpliado = document.getElementById('titulo-ampliado');
+    const cerrarModal = document.getElementById('cerrar-modal');
+
+    function abrirFoto(foto) {
+      fotoAmpliada.src = foto.src;
+      fotoAmpliada.alt = foto.alt;
+      tituloAmpliado.textContent = foto.dataset.titulo;
+      modal.classList.add('abierto');
+      cerrarModal.focus();
+    }
+
+    document.querySelectorAll('.producto-foto').forEach(foto => {
+      foto.addEventListener('click', () => abrirFoto(foto));
+      foto.addEventListener('keydown', evento => {
+        if (evento.key === 'Enter' || evento.key === ' ') {
+          evento.preventDefault();
+          abrirFoto(foto);
+        }
+      });
+    });
+
+    function cerrarVentana() {
+      modal.classList.remove('abierto');
+      fotoAmpliada.src = '';
+    }
+
+    cerrarModal.addEventListener('click', cerrarVentana);
+    modal.addEventListener('click', evento => {
+      if (evento.target === modal) cerrarVentana();
+    });
+    document.addEventListener('keydown', evento => {
+      if (evento.key === 'Escape') cerrarVentana();
+    });
+
+    // El formulario prepara un correo con los datos escritos
+    document.getElementById('formulario-contacto').addEventListener('submit', evento => {
+      evento.preventDefault();
+      const nombre = document.getElementById('nombre').value.trim();
+      const correo = document.getElementById('correo').value.trim();
+      const mensaje = document.getElementById('mensaje').value.trim();
+      const asunto = encodeURIComponent('Mensaje desde el sitio web de ARKEA');
+      const cuerpo = encodeURIComponent(
+        'Nombre: ' + nombre + '\nCorreo: ' + correo + '\n\nMensaje:\n' + mensaje
+      );
+      document.getElementById('estado-formulario').textContent =
+        'Se abrirá tu aplicación de correo para que revises y envíes el mensaje.';
+      window.location.href = 'mailto:xvivideag@sdbhschool.net?subject=' + asunto + '&body=' + cuerpo;
+    });
+  </script>
+</body>
+</html>
